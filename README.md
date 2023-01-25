@@ -2,6 +2,7 @@
 
 ## Introduction
 This is the repository for BINDER ([**BI**-encoder for **N**ame**D** **E**ntity **R**ecognition via Contrastive Learning](https://openreview.net/forum?id=9EAQVEINuum)) accepted at ICLR 2023.
+
 BINDER employs two encoders to separately map text and entity types
 into the same vector space, and reuses the vector representations of entity types for different text spans (or vice versa), resulting in a faster training and inference speed.
 Based on the bi-encoder representations, BINDER introduces a unified contrastive learning framework for NER, which encourages the representation of entity types to be similar with the corresponding
