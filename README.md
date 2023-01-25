@@ -1,13 +1,13 @@
-# [Optimizing Bi-Encoder for Named Entity Recognition via Contrastive Learning](https://openreview.net/pdf?id=9EAQVEINuum)
+# [Optimizing Bi-Encoder for Named Entity Recognition via Contrastive Learning](https://openreview.net/forum?id=9EAQVEINuum)
 
 ## Introduction
-This is the repository for BINDER ([**BI**-encoder for **N**ame**D** **E**ntity **R**ecognition via Contrastive Learning](https://openreview.net/pdf?id=9EAQVEINuum)).
+This is the repository for BINDER ([**BI**-encoder for **N**ame**D** **E**ntity **R**ecognition via Contrastive Learning](https://openreview.net/forum?id=9EAQVEINuum)) accepted at ICLR 2023.
 BINDER employs two encoders to separately map text and entity types
 into the same vector space, and reuses the vector representations of entity types for different text spans (or vice versa), resulting in a faster training and inference speed.
 Based on the bi-encoder representations, BINDER introduces a unified contrastive learning framework for NER, which encourages the representation of entity types to be similar with the corresponding
 entity mentions, and to be dissimilar with non-entity text spans.
 BINDER also introudces a novel dynamic thresholding loss in contrastive learning. At test time, it leverages candidate-specific dynamic thresholds to distinguish entity spans from non-entity ones.
-Check out [our paper](https://openreview.net/pdf?id=9EAQVEINuum) for the details.
+Check out [our paper](https://openreview.net/forum?id=9EAQVEINuum) for the details.
 
 If you find our code is useful, please cite:
 ```bib
@@ -35,7 +35,7 @@ pip install transformers==4.24.0 datasets==2.6.1 wandb==0.13.5 seqeval==1.2.2
 ```
 
 ### 3. Experiment Run
-Assuming you have prepared data for ACE2005 and finished enironment setup, here is the command to run an experiment on ACE2005:
+Assuming you have prepared data for ACE2005 and finished enironment setup, below is the command to run an experiment on ACE2005:
 ```bash
 python run_ner.py conf/ace05.json
 ```
