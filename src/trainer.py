@@ -47,7 +47,7 @@ class BinderDataCollator:
         if 'ner' in features[0]:
             # For training
             ner = {}
-            # Collate negtive mask with shape [batch_size, num_types, ...].
+            # Collate negative mask with shape [batch_size, num_types, ...].
             start_negative_mask, end_negative_mask, span_negative_mask = [], [], []
             # [batch_size, num_types, seq_length]
             start_negative_mask = torch.tensor([f["ner"]["start_negative_mask"] for f in features], dtype=torch.bool)
