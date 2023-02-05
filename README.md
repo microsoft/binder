@@ -27,7 +27,7 @@ If you find our code is useful, please cite:
 Follow the instructions [README.md](data_preproc/README.md) in the data_preproc folder.
 
 
-### 2. Enviroment Setup
+### 2. Environment Setup
 ```bash
 conda create -n binder -y python=3.9
 conda activate binder
@@ -36,7 +36,7 @@ pip install transformers==4.24.0 datasets==2.6.1 wandb==0.13.5 seqeval==1.2.2
 ```
 
 ### 3. Experiment Run
-Assuming you have prepared data for ACE2005 and finished enironment setup, below is the command to run an experiment on ACE2005:
+Assuming you have prepared data for ACE2005 and finished environment setup, below is the command to run an experiment on ACE2005:
 ```bash
 python run_ner.py conf/ace05.json
 ```
