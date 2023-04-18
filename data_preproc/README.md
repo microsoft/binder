@@ -15,6 +15,7 @@ The data preprocessing code is adapted from [DyGIE](https://github.com/luanyi/Dy
 * ACE 2004 (https://catalog.ldc.upenn.edu/LDC2005T09)
 * ACE 2005 (https://catalog.ldc.upenn.edu/LDC2006T06)
 * CoNLL 2003 (We use the preprocessed version from [Yu et al., 2020](https://github.com/juntaoy/biaffine-ner/issues/16))
+* GENIA (We use the preprocessed version from [Yu et al., 2020](https://github.com/juntaoy/biaffine-ner/issues/17))
 
 # Usage
 
@@ -73,5 +74,17 @@ python convert_to_hf_ds_format.py conll2003/train.json ${CoNLL2003}/train.json -
 python convert_to_hf_ds_format.py conll2003/dev.json ${CoNLL2003}/dev.json --task conll2003
 python convert_to_hf_ds_format.py conll2003/test.json ${CoNLL2003}/test.json --task conll2003
 ```
+
+### GENIA
+```bash
+cd genia
+split -l 1599 train_dev.genia.jsonlines train_dev.split.
+cd ..
+mkdir -p ../data/genia
+python convert_to_hf_ds_format.py genia/train_dev.split.aa ../data/genia/train.json --task conll2003
+python convert_to_hf_ds_format.py genia/train_dev.split.ab ../data/genia/dev.json --task conll2003
+python convert_to_hf_ds_format.py genia/test.genia.jsonlines ../data/genia/test.json --task conll2003
+```
+
 
 If you want to use other datasets, please convert them into the same format as above.
