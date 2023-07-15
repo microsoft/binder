@@ -33,7 +33,7 @@ def compute_tp_fn_fp(predictions: Set, labels: Set, **kwargs) -> Dict[str, float
     return {"tp": tp, "fn": fn, "fp": fp}
 
 
-def compute_precision_recall_f1(tp: int, fn: int, fp: int, **kwargs) -> Dict[str, float]:
+def compute_precision_recall_f1(tp: int, fn: int, fp: int, beta: int = 2, **kwargs) -> Dict[str, float]:
     if tp + fp + fn == 0:
         return {"precision": 1.0, "recall": 1.0, "f1": 1.0}
     if tp + fp == 0:
@@ -43,7 +43,10 @@ def compute_precision_recall_f1(tp: int, fn: int, fp: int, **kwargs) -> Dict[str
     precision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1 = 2 * tp / (2 * tp + fp + fn)
-    return {"precision": precision, "recall": recall, "f1": f1}
+
+    # Adjusted F1 placing greater importance on recall than precision
+    adj_f1 = ((1 + beta**2) * precision * recall) / ((beta**2 * precision) + recall)
+    return {"precision": precision, "recall": recall, "f1": f1, "adj_f1": adj_f1}
 
 
 def postprocess_nested_predictions(
