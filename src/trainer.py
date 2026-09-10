@@ -33,9 +33,9 @@ class BinderDataCollator:
             self.type_token_type_ids = torch.tensor(self.type_token_type_ids)
 
     def __call__(self, features: List) -> Dict[str, Any]:
-        batch = {}
-        batch['input_ids'] = torch.tensor([f['input_ids'] for f in features], dtype=torch.long)
-        batch['attention_mask'] = torch.tensor([f['attention_mask'] for f in features], dtype=torch.bool)
+        batch = {'input_ids': torch.tensor([f['input_ids'] for f in features], dtype=torch.long),
+                 'attention_mask': torch.tensor([f['attention_mask'] for f in features], dtype=torch.bool)}
+
         if "token_type_ids" in features[0]:
             batch['token_type_ids'] = torch.tensor([f['token_type_ids'] for f in features], dtype=torch.long)
 
@@ -48,7 +48,6 @@ class BinderDataCollator:
             # For training
             ner = {}
             # Collate negative mask with shape [batch_size, num_types, ...].
-            start_negative_mask, end_negative_mask, span_negative_mask = [], [], []
             # [batch_size, num_types, seq_length]
             start_negative_mask = torch.tensor([f["ner"]["start_negative_mask"] for f in features], dtype=torch.bool)
             end_negative_mask = torch.tensor([f["ner"]["end_negative_mask"] for f in features], dtype=torch.bool)
@@ -59,7 +58,7 @@ class BinderDataCollator:
             end_negative_mask[:, :, 0] = 1
             span_negative_mask[:, :, 0, 0] = 1
 
-            ner['start_negative_mask'] =  start_negative_mask
+            ner['start_negative_mask'] = start_negative_mask
             ner['end_negative_mask'] = end_negative_mask
             ner['span_negative_mask'] = span_negative_mask
 
@@ -151,7 +150,6 @@ class BinderTrainer(Trainer):
         self.control = self.callback_handler.on_evaluate(self.args, self.state, self.control, metrics)
 
         return metrics
-
 
     def predict(self, predict_dataset, predict_examples, ignore_keys=None, metric_key_prefix: str = "test"):
         predict_dataloader = self.get_test_dataloader(predict_dataset)
